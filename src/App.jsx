@@ -4,6 +4,7 @@ import Login from "./connection/login";
 import AdminUpload from "./connection/AdminUpload";
 import ProductGallery from "./connection/ProductGallery";
 import { supabase } from "./connection/supabase";
+import logo from "./logo.png"; 
 
 function App() {
   const [user, setUser] = useState(null);
@@ -26,16 +27,35 @@ function App() {
   return (
     <div>
       {/* ✅ Navbar */}
-      <nav style={navbarStyle}>
-        <div style={navLeft}>
-          <Link to="/" style={navLink}>🏠 Home</Link>
-          {user && <Link to="/admin" style={navLink}>📤 Upload</Link>}
+      <nav style={{
+        padding: "10px 20px",
+        background: "#f8f8f8",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        borderBottom: "1px solid #ddd"
+      }}>
+        {/* 🔵 Logo & Home */}
+        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <img
+            src={logo}
+            alt="Logo"
+            style={{ height: "40px", borderRadius: "5px" }}
+          />
+          <Link to="/" style={{ textDecoration: "none", color: "#333", fontSize: "20px", fontWeight: "bold" }}>
+            ASHOK-GALLERY 
+          </Link>
         </div>
-        <div>
+
+        {/* 🔵 Menu */}
+        <div style={{ display: "flex", gap: "20px", alignItems: "center" }}>
           {user ? (
-            <button onClick={handleLogout} style={logoutBtn}>🔓 Logout</button>
+            <>
+              <Link to="/admin" style={navLinkStyle}>📤 Upload</Link>
+              <button onClick={handleLogout} style={logoutBtnStyle}>🔓 Logout</button>
+            </>
           ) : (
-            <Link to="/login" style={navLink}>🔐 Admin Login</Link>
+            <Link to="/login" style={navLinkStyle}>🔐 Admin Login</Link>
           )}
         </div>
       </nav>
@@ -60,8 +80,8 @@ function App() {
             user ? (
               <AdminUpload />
             ) : (
-              <p style={{ padding: "20px", color: "red", textAlign: "center" }}>
-                Please login to access admin upload.
+              <p style={{ padding: "20px", color: "red" }}>
+                Please login first to upload products.
               </p>
             )
           }
@@ -71,38 +91,21 @@ function App() {
   );
 }
 
-export default App;
-
-// 🔵 Inline Styles
-const navbarStyle = {
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-  padding: "15px 25px",
-  backgroundColor: "#007bff",
-  color: "#fff",
-  boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-};
-
-const navLeft = {
-  display: "flex",
-  gap: "20px",
-  alignItems: "center",
-};
-
-const navLink = {
-  color: "#fff",
+// 🧾 Styles
+const navLinkStyle = {
   textDecoration: "none",
+  color: "#333",
   fontWeight: "bold",
-  fontSize: "16px",
 };
 
-const logoutBtn = {
-  backgroundColor: "#e63946",
-  color: "#fff",
+const logoutBtnStyle = {
+  padding: "6px 12px",
+  fontSize: "14px",
+  background: "#ff4d4d",
   border: "none",
-  padding: "8px 16px",
-  borderRadius: "6px",
-  cursor: "pointer",
-  fontSize: "15px",
+  color: "white",
+  borderRadius: "4px",
+  cursor: "pointer"
 };
+
+export default App;
