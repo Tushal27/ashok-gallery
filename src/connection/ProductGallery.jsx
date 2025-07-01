@@ -67,7 +67,7 @@ function ProductGallery() {
                   style={{
                     width: "100%",
                     height: "200px",
-                    objectFit: "contain",
+                    objectFit: "cover",
                     borderRadius: "6px",
                     backgroundColor: "#f9f9f9",
                   }}
@@ -91,14 +91,17 @@ function ProductGallery() {
           onClick={closeModal}
           style={{
             position: "fixed",
-            top: 0, left: 0,
-            width: "100%", height: "100%",
-            backgroundColor: "rgba(0,0,0,0.7)",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            backgroundColor: "rgba(0, 0, 0, 0.7)",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
             zIndex: 9999,
             padding: "20px",
+            overflow: "auto",
           }}
         >
           <div
@@ -107,12 +110,12 @@ function ProductGallery() {
               background: "#fff",
               borderRadius: "12px",
               padding: "30px",
-              width: "90%",
+              width: "100%",
               maxWidth: "1000px",
-              maxHeight: "90vh",
-              overflowY: "auto",
-              textAlign: "center",
               boxShadow: "0 5px 20px rgba(0,0,0,0.3)",
+              boxSizing: "border-box",
+              textAlign: "center",
+              overflow: "hidden",
             }}
           >
             <img
@@ -150,4 +153,4 @@ function ProductGallery() {
   );
 }
 
-export default ProductGallery; 
+export default ProductGallery;
