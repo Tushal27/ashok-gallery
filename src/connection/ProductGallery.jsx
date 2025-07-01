@@ -4,6 +4,7 @@ import { supabase } from "./supabase";
 function ProductGallery() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [modalData, setModalData] = useState(null); // For modal
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -19,22 +20,21 @@ function ProductGallery() {
     fetchProducts();
   }, []);
 
-  if (loading) {
-    return <p style={{ textAlign: "center", marginTop: "30px" }}>Loading products...</p>;
-  }
+  const openModal = (product) => setModalData(product);
+  const closeModal = () => setModalData(null);
 
-  if (!products.length) {
-    return <p style={{ textAlign: "center", marginTop: "30px" }}>No products found.</p>;
-  }
+  if (loading) return <p style={{ textAlign: "center", marginTop: "30px" }}>Loading...</p>;
+
+  if (!products.length) return <p style={{ textAlign: "center", marginTop: "30px" }}>No products found.</p>;
 
   return (
-    <div style={{ padding: "20px", backgroundColor: "#f9f9f9", minHeight: "100vh" }}>
-      <h2 style={{ textAlign: "center", marginBottom: "30px", fontSize: "28px" }}>🛍 Product Gallery</h2>
+    <div style={{ padding: "20px" }}>
+      <h2 style={{ textAlign: "center", marginBottom: "20px" }}>🛍 Product Gallery</h2>
 
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
+          gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
           gap: "20px",
         }}
       >
@@ -42,32 +42,85 @@ function ProductGallery() {
           <div
             key={product.id}
             style={{
-              background: "white",
-              padding: "15px",
+              border: "1px solid #ddd",
+              borderRadius: "8px",
+              boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
+              padding: "10px",
+              textAlign: "center",
+              cursor: "pointer",
+            }}
+            onClick={() => openModal(product)}
+          >
+            <img
+              src={product.image_url}
+              alt="Product"
+              style={{
+                width: "100%",
+                height: "200px",
+                objectFit: "contain",
+                borderRadius: "6px",
+                backgroundColor: "#f9f9f9",
+              }}
+            />
+            <p style={{ marginTop: "10px", fontWeight: "bold" }}>{product.name}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* ✅ Modal Popup */}
+      {modalData && (
+        <div
+          onClick={closeModal}
+          style={{
+            position: "fixed",
+            top: 0, left: 0,
+            width: "100%",
+            height: "100%",
+            backgroundColor: "rgba(0,0,0,0.6)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 9999,
+          }}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              background: "#fff",
               borderRadius: "10px",
-              boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+              padding: "20px",
+              maxWidth: "90%",
+              maxHeight: "90%",
               textAlign: "center",
             }}
           >
             <img
-              src={product.image_url}
-              alt={product.name}
+              src={modalData.image_url}
+              alt="Zoomed"
               style={{
-                width: "100%",
-                height: "180px",
-                objectFit: "cover",
-                borderRadius: "8px",
-              }}
-              onError={(e) => {
-                e.target.onerror = null;
-                e.target.src = "https://via.placeholder.com/200?text=Image+Not+Found";
+                maxWidth: "100%",
+                maxHeight: "70vh",
+                objectFit: "contain",
               }}
             />
-            <h3 style={{ marginTop: "12px", fontSize: "18px" }}>{product.name}</h3>
-            <p style={{ fontWeight: "bold", fontSize: "16px", color: "#333" }}>{product.price}</p>
+            <h3 style={{ marginTop: "15px" }}>{modalData.name}</h3>
+            <button
+              onClick={closeModal}
+              style={{
+                marginTop: "10px",
+                padding: "6px 15px",
+                background: "#222",
+                color: "#fff",
+                border: "none",
+                borderRadius: "4px",
+                cursor: "pointer",
+              }}
+            >
+              Close
+            </button>
           </div>
-        ))}
-      </div>
+        </div>
+      )}
     </div>
   );
 }
