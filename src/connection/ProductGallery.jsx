@@ -64,7 +64,7 @@ function ProductGallery() {
               }}
             />
             <h3 style={{ marginTop: "12px", fontSize: "18px" }}>{product.name}</h3>
-            <p style={{ fontWeight: "bold", fontSize: "16px", color: "#333" }}>₹{product.price}</p>
+            <p style={{ fontWeight: "bold", fontSize: "16px", color: "#333" }}>{product.price}</p>
           </div>
         ))}
       </div>
