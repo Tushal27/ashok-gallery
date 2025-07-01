@@ -31,8 +31,11 @@ function ProductGallery() {
   const openModal = (product) => setModalData(product);
   const closeModal = () => setModalData(null);
 
-  if (loading) return <p style={{ textAlign: "center", marginTop: "30px" }}>Loading...</p>;
-  if (!Object.keys(groupedProducts).length) return <p style={{ textAlign: "center", marginTop: "30px" }}>No products found.</p>;
+  if (loading)
+    return <p style={{ textAlign: "center", marginTop: "30px" }}>Loading...</p>;
+
+  if (!Object.keys(groupedProducts).length)
+    return <p style={{ textAlign: "center", marginTop: "30px" }}>No products found.</p>;
 
   return (
     <div style={{ padding: "20px" }}>
@@ -40,7 +43,9 @@ function ProductGallery() {
 
       {Object.entries(groupedProducts).map(([heading, products]) => (
         <div key={heading} style={{ marginBottom: "40px" }}>
-          <h3 style={{ fontSize: "22px", color: "#333", marginBottom: "15px" }}>📌 {heading}</h3>
+          <h3 style={{ fontSize: "22px", color: "#333", marginBottom: "15px" }}>
+            📌 {heading}
+          </h3>
           <div
             style={{
               display: "grid",
@@ -73,10 +78,18 @@ function ProductGallery() {
                   }}
                   onError={(e) => {
                     e.target.onerror = null;
-                    e.target.src = "https://via.placeholder.com/200?text=Image+Not+Found";
+                    e.target.src =
+                      "https://via.placeholder.com/200?text=Image+Not+Found";
                   }}
                 />
-                <p style={{ marginTop: "10px", fontWeight: "bold", fontSize: "16px" }}>
+                <p
+                  style={{
+                    marginTop: "10px",
+                    fontWeight: "bold",
+                    fontSize: "16px",
+                    color: "#333",
+                  }}
+                >
                   {product.name}
                 </p>
               </div>
@@ -85,7 +98,7 @@ function ProductGallery() {
         </div>
       ))}
 
-      {/* ✅ Modal Popup */}
+      {/* ✅ Popup Modal */}
       {modalData && (
         <div
           onClick={closeModal}
@@ -100,47 +113,48 @@ function ProductGallery() {
             justifyContent: "center",
             alignItems: "center",
             zIndex: 9999,
-            padding: "20px",
-            overflow: "auto",
+            padding: "10px",
+            boxSizing: "border-box",
+            overflowY: "auto",
           }}
         >
           <div
             onClick={(e) => e.stopPropagation()}
             style={{
-              background: "#fff",
-              borderRadius: "12px",
-              padding: "30px",
+              backgroundColor: "#fff",
+              borderRadius: "10px",
+              padding: "20px",
               width: "100%",
-              maxWidth: "1000px",
+              maxWidth: "500px",
               boxShadow: "0 5px 20px rgba(0,0,0,0.3)",
-              boxSizing: "border-box",
               textAlign: "center",
-              overflow: "hidden",
+              boxSizing: "border-box",
             }}
           >
             <img
               src={modalData.image_url}
-              alt="Zoomed Product"
+              alt="Zoomed"
               style={{
                 width: "100%",
                 height: "auto",
                 objectFit: "contain",
                 borderRadius: "8px",
+                marginBottom: "15px",
               }}
             />
-            <h2 style={{ marginTop: "15px", fontSize: "22px", color: "#222" }}>
+            <h2 style={{ fontSize: "20px", margin: "0 0 10px", color: "#222" }}>
               {modalData.name}
             </h2>
             <button
               onClick={closeModal}
               style={{
-                marginTop: "20px",
-                padding: "10px 20px",
-                background: "#111",
+                marginTop: "10px",
+                padding: "8px 18px",
+                backgroundColor: "#000",
                 color: "#fff",
                 border: "none",
                 borderRadius: "6px",
-                fontSize: "16px",
+                fontSize: "15px",
                 cursor: "pointer",
               }}
             >
