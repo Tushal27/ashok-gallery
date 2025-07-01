@@ -46,7 +46,7 @@ export default function AdminUpload() {
       <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>Upload Product</h2>
       <input type="file" onChange={e => setFile(e.target.files[0])} style={inputStyle} />
       <input type="text" placeholder="Product Name" value={name} onChange={e => setName(e.target.value)} style={inputStyle} />
-      <input type="number" placeholder="Price" value={price} onChange={e => setPrice(e.target.value)} style={inputStyle} />
+      <input type="text" placeholder="Heading" value={price} onChange={e => setPrice(e.target.value)} style={inputStyle} />
       <button onClick={upload} style={buttonStyle}>Upload</button>
     </div>
   );
