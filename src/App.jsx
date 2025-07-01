@@ -43,7 +43,7 @@ function App() {
             style={{ height: "40px", borderRadius: "5px" }}
           />
           <Link to="/" style={{ textDecoration: "none", color: "#333", fontSize: "20px", fontWeight: "bold" }}>
-            ASHOK-GALLERY 
+            BHAWANI ENTERPRISES
           </Link>
         </div>
 
