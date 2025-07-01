@@ -7,7 +7,7 @@ export default function AdminUpload() {
   const [price, setPrice] = useState('');
 
   const upload = async () => {
-    if (!file || !name || !price) return alert("❌ All fields are required!");
+    if (!file || !name ) return alert("❌ All fields are required!");
 
     const fileExt = file.name.split('.').pop();
     const fileName = `${Date.now()}.${fileExt}`;
@@ -24,7 +24,7 @@ export default function AdminUpload() {
 
     const { error: insertError } = await supabase
       .from('products')
-      .insert([{ name, price: Number(price), image_url: publicUrl }]);
+      .insert([{ name, price: price, image_url: publicUrl }]);
 
     if (insertError) return alert("❌ DB insert failed: " + insertError.message);
 
