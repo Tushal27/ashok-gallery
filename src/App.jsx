@@ -5,6 +5,7 @@ import AdminUpload from "./connection/AdminUpload";
 import ProductGallery from "./connection/ProductGallery";
 import { supabase } from "./connection/supabase";
 import logo from "./logo.png"; 
+import DeleteProducts from "./connection/DeleteProducts";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -51,6 +52,7 @@ function App() {
         <div style={{ display: "flex", gap: "20px", alignItems: "center" }}>
           {user ? (
             <>
+              <Link  to="/delete-products" style={navLinkStyle}>🗑️ Delete Products</Link>
               <Link to="/admin" style={navLinkStyle}>📤 Upload</Link>
               <button onClick={handleLogout} style={logoutBtnStyle}>🔓 Logout</button>
             </>
@@ -86,6 +88,19 @@ function App() {
             )
           }
         />
+        <Route
+          path="/delete-products"
+          element={
+            user ? (
+              <DeleteProducts />
+            ) : (
+              <p style={{ padding: "20px", color: "red" }}>
+                Please login first to delete products.
+              </p>
+            )
+          }
+        />
+        <Route path="*" element={<p style={{ padding: "20px" }}>404 - Page Not Found</p>} />
       </Routes>
     </div>
   );
