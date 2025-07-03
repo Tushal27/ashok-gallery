@@ -32,6 +32,7 @@ function App() {
         padding: "10px 20px",
         background: "#f8f8f8",
         display: "flex",
+        flexWrap: "wrap",        
         alignItems: "center",
         justifyContent: "space-between",
         borderBottom: "1px solid #ddd"
